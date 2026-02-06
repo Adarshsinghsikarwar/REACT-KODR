@@ -1,0 +1,17 @@
+framerwok is something which use own property.
+library is something which is like a plugin.before react name it was 
+Real DOM : hamesha dekta hai
+Virtual : it is a copy of real DOM . all the change occur first in real DOM. 
+then it make a comparsion with REAl DOM. this whole procces is known as Recounlation 
+
+diffing algorithm : it work to comparsion real and virtual DOM
+
+batching algorithm : it is a major change in the react 
+
+vite : it a boundler . build tool
+CRA(Create react app) : it is a webpack
+parcer :
+
+NPM: it is a regitry package
+trash ..
+Hot module replacment
