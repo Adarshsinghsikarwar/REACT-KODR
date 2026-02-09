@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const App = () => {
-  const [user, setUser] = useState([
+  const data = [
     {
       id: 1,
       email: "john@gmail.com",
@@ -22,7 +22,8 @@ const App = () => {
         lastname: "morrison",
       },
     },
-  ]);
+  ];
+  const [user, setUser] = useState(data);
 
   return (
     <div>

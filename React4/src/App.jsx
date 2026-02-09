@@ -20,17 +20,16 @@ const App = () => {
       </h1>
       <button
         onClick={() => {
-          setcount(() => setcount((prev) => prev + 1));
-          setcount(() => setcount((prev) => prev + 1));
-          setcount(() => setcount((prev) => prev + 1));
-          // setcount(count + 1);
-          // setcount(count + 1);
-          // setcount(count + 1);
-          // setcount(count+1);
-          
-          // setcount(count+2);
-          // setcount(count+3);
-          // count++;
+          setcount((prev) => prev + 1);
+          setcount((prev) => prev + 1);
+          setcount((prev) => prev + 1);
+          setcount(count + 1);
+          setcount(count + 1);
+          setcount(count + 1);
+          setcount(count + 1);
+          setcount(count + 2);
+          setcount(count + 3);
+          count++;
           // p.textContent = count;
           // console.log(p)
         }}
