@@ -15,3 +15,6 @@ parcer :
 NPM: it is a regitry package
 trash ..
 Hot module replacment
+
+npm init
+npm i -D vite
