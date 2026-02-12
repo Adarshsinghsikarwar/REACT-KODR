@@ -10,8 +10,8 @@ const TwoWayBinding = () => {
   console.log(formData);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4">
-      <div className="w-full max-w-md text-black border border-white/20 rounded-2xl shadow-2xl p-8">
+    <div>
+      <div>
         <form
           onSubmit={(e) => e.preventDefault()}
           className="flex flex-col gap-5"
