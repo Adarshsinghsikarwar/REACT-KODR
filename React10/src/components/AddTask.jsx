@@ -7,8 +7,9 @@ const AddTask = ({ addTask }) => {
     formState: { errors },
   } = useForm();
   let handleForm = (data) => {
-    data = { ...data, completed: false };
+    data = { ...data, completed: false};
     addTask(data);
+    reset();
   };
   return (
     <div className="px-10 py-2">
