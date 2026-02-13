@@ -33,12 +33,11 @@ const Form2 = () => {
   const formatSkills = (skills) => {
     if (!skills) return "";
     if (Array.isArray(skills)) return skills.join(", ");
-    return skills; // if single string
+    return skills;
   };
 
   return (
     <div className="bg-zinc-100 min-h-screen p-10 font-sans">
-      {/* FORM + PREVIEW */}
       <h1 className="text-4xl font-black text-center mb-12 tracking-tighter text-zinc-900">
         User Registration
       </h1>
@@ -282,7 +281,6 @@ const Form2 = () => {
         </div>
       </div>
 
-      {/* USER CARDS */}
       <div className="mt-20 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-black tracking-tight text-zinc-900">
