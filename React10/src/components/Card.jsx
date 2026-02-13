@@ -19,30 +19,30 @@ const Card = ({ tasks, timers = {} }) => {
   };
 
   return (
-    <div className="px-10 py-10 flex flex-wrap gap-5">
-      <div className="flex flex-col gap-2  items-center justify-center border w-[18%] py-5 rounded-xl">
+    <div className="px-4 md:px-10 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5 rounded-xl">
         <h1 className="text-3xl font-bold">{totalTasks}</h1>
         <p className="text-xl font-medium">Total Tasks</p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-[18%] py-5  rounded-xl">
+      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
         <h1 className="text-3xl font-bold">
           {tasks.filter((ele) => !ele.isCompleted).length}
         </h1>
         <p className="text-xl font-medium">Active</p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-[18%] py-5  rounded-xl">
+      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
         <h1 className="text-3xl font-bold">{completedTasks}</h1>
         <p className="text-xl font-medium">Completed</p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-[18%] py-5  rounded-xl">
+      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
         <h1 className="text-3xl font-bold">{formatTime(totalSeconds)}</h1>
         <p className="text-xl font-medium">Total Time</p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-[18%] py-5  rounded-xl">
+      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
         <h1 className="text-3xl font-bold">{formatTime(avgSeconds)}</h1>
         <p className="text-xl font-medium">Avg/Task</p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-[18%] py-5  rounded-xl">
+      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
         <h1 className="text-3xl font-bold">
           {Math.round(completionPercentage)}%
         </h1>

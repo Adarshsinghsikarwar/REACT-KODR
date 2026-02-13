@@ -7,12 +7,12 @@ const AddTask = ({ addTask }) => {
     formState: { errors },
   } = useForm();
   let handleForm = (data) => {
-    data = { ...data, completed: false};
+    data = { ...data, completed: false };
     addTask(data);
     reset();
   };
   return (
-    <div className="px-10 py-2">
+    <div className="px-4 md:px-10 py-2">
       <form
         onSubmit={handleSubmit(handleForm)}
         className="rounded-xl flex flex-col gap-5 border p-5"
@@ -50,7 +50,7 @@ const AddTask = ({ addTask }) => {
           <option value="High">High Priority</option>
           <option value="Low">Low Priority</option>
         </select>
-        <button className="w-fit bg-[#00B158] rounded-xl text-xl font-bold px-7 text-white  py-2">
+        <button className="w-full md:w-fit bg-[#00B158] rounded-xl text-xl font-bold px-7 text-white  py-2">
           Add Task
         </button>
       </form>

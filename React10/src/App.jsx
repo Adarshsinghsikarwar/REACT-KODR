@@ -115,7 +115,7 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen max-w-[65%] mx-auto bg-[#FFFFFF]">
+    <div className="min-h-screen w-full px-4 md:max-w-[85%] lg:max-w-[65%] mx-auto bg-[#FFFFFF]">
       <Header />
       <Card tasks={tasks} timers={timers} />
       <AddTask addTask={addTask} />

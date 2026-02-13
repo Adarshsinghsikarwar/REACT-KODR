@@ -20,36 +20,36 @@ const Result = ({
   };
 
   return (
-    <div className="px-10 py-10 flex flex-col gap-6">
-      <div className=" flex justify-between items-center">
+    <div className="px-4 md:px-10 py-10 flex flex-col gap-6">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <input
           onChange={searchTask}
-          className="bg-zinc-100 text-xl px-4 py-3 rounded-xl w-[60%]"
+          className="bg-zinc-100 text-xl px-4 py-3 rounded-xl w-full md:w-[60%]"
           type="text"
           placeholder="Search Tasks"
         />
-        <div className="flex gap-3">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3">
           <button
             onClick={allTask}
-            className="px-10 py-2 rounded text-sm font-medium bg-zinc-400 "
+            className="px-6 py-2 rounded text-sm font-medium bg-zinc-400 "
           >
             All
           </button>
           <button
             onClick={activeTask}
-            className="px-10 py-2 rounded text-sm font-bold bg-zinc-400 "
+            className="px-6 py-2 rounded text-sm font-bold bg-zinc-400 "
           >
             Active
           </button>
           <button
             onClick={completeTask}
-            className="px-10 py-2 rounded text-sm font-medium bg-zinc-400 "
+            className="px-6 py-2 rounded text-sm font-medium bg-zinc-400 "
           >
             Complete
           </button>
           <button
             onClick={clearCompletedTask}
-            className={`px-10 py-2 rounded text-sm font-medium bg-zinc-400 ${tasks.filter((ele) => ele.isCompleted).length === 0 ? "hidden" : ""}`}
+            className={`px-6 py-2 rounded text-sm font-medium bg-zinc-400 ${tasks.filter((ele) => ele.isCompleted).length === 0 ? "hidden" : ""}`}
           >
             Clear Completed
           </button>
@@ -64,32 +64,36 @@ const Result = ({
             <div className="text-2xl mt-2 font-medium flex gap-3 items-center">
               <input
                 onClick={() => completedTask(ele.id)}
-                className="w-6 h-6"
+                className="w-6 h-6 shrink-0"
                 type="checkbox"
                 defaultChecked={ele.isCompleted}
               />
-              <h1 className={ele.isCompleted ? "line-through" : ""}>
+              <h1
+                className={`${ele.isCompleted ? "line-through" : ""} break-words`}
+              >
                 {ele.taskName}
               </h1>
             </div>
-            <div className="px-8">
+            <div className="px-2 md:px-8">
               <h1
-                className={`text-[1.2rem] mb-3 font-semibold ${ele.isCompleted ? "line-through" : ""}`}
+                className={`text-[1.2rem] mb-3 font-semibold break-words ${ele.isCompleted ? "line-through" : ""}`}
               >
                 {ele.taskDescription}
               </h1>
-              <span className="px-4 mr-3 font-semibold py-1 bg-[#FAE2A8] rounded-xl">
-                {ele.priority}
-              </span>
-              <span className="px-4 bg-zinc-200 rounded-xl font-semibold py-1 ">
-                {formatTime(timers[ele.id]?.time)}
-              </span>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-4 font-semibold py-1 bg-[#FAE2A8] rounded-xl">
+                  {ele.priority}
+                </span>
+                <span className="px-4 bg-zinc-200 rounded-xl font-semibold py-1 ">
+                  {formatTime(timers[ele.id]?.time)}
+                </span>
+              </div>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-wrap gap-4">
               <button
                 onClick={() => toggleTimer(ele.id)}
                 disabled={ele.isCompleted}
-                className={`px-3 mr-4 py-1 text-xl rounded-sm bg-zinc-100 ${ele.isCompleted ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`px-3 py-1 text-xl rounded-sm bg-zinc-100 ${ele.isCompleted ? "opacity-50 cursor-not-allowed" : ""}`}
               >
                 {timers[ele.id]?.isRunning ? "Stop" : "▶ Start"}
               </button>
