@@ -13,29 +13,31 @@ const WishlistList = () => {
           {Wishlist.map((item, idx) => (
             <div
               key={idx}
-              className={`p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all flex flex-col gap-4 ${
+              className={`p-4 rounded-xl transition-shadow hover:shadow-lg flex flex-col justify-between ${
                 mode === "dark"
                   ? "bg-gray-800 text-white"
-                  : "bg-white text-gray-900"
+                  : "bg-white text-gray-900 shadow-sm border border-gray-100"
               }`}
             >
-              <div className="flex justify-between items-center">
-                <div
-                  className={`h-12 w-12 rounded-full flex items-center justify-center text-xl font-bold ${
-                    mode === "dark"
-                      ? "bg-gray-700 text-gray-200"
-                      : "bg-gray-100 text-gray-600"
-                  }`}
-                >
-                  {item.name.charAt(0).toUpperCase()}
+              <div className="flex flex-col gap-3">
+                <div className="w-full h-48 bg-white rounded-lg flex items-center justify-center p-4 overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full w-full object-contain"
+                  />
                 </div>
-                <h2 className="text-xl font-bold">{item.name}</h2>
+                <div>
+                  <h1 className="text-xl font-bold truncate" title={item.name}>
+                    {item.name}
+                  </h1>
+                  <p className="text-lg opacity-60 font-bold">
+                    ₹{item.price.toLocaleString()}
+                  </p>
+                </div>
               </div>
-              <p className="text-2xl font-bold opacity-80">
-                ₹{item.price.toLocaleString()}
-              </p>
 
-              <div className="flex flex-col gap-3 mt-auto">
+              <div className="flex flex-col gap-2 mt-4">
                 <button
                   onClick={() => {
                     const existingItem = cart.find(
@@ -51,6 +53,7 @@ const WishlistList = () => {
                         ),
                       );
                     } else {
+                      // Ensure image is passed if not already in item (though it should be)
                       setCart((prev) => [...prev, { ...item, quantity: 1 }]);
                     }
 
@@ -61,7 +64,7 @@ const WishlistList = () => {
                       ),
                     );
                   }}
-                  className={`w-full py-3 rounded-xl font-bold transition-all active:scale-95 ${
+                  className={`w-full py-2 rounded-lg font-bold text-sm transition-all active:scale-95 ${
                     mode === "dark"
                       ? "bg-white text-black hover:bg-gray-200"
                       : "bg-black text-white hover:bg-gray-800"
@@ -77,7 +80,7 @@ const WishlistList = () => {
                       ),
                     )
                   }
-                  className="w-full py-3 rounded-xl font-medium text-white bg-red-500 hover:bg-red-600 transition-colors active:scale-95"
+                  className="w-full py-2 rounded-lg font-medium text-white bg-red-500 hover:bg-red-600 transition-colors active:scale-95 text-sm"
                 >
                   Remove
                 </button>
@@ -87,7 +90,7 @@ const WishlistList = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-20 opacity-50 gap-4">
-          <span className="text-6xl">✨</span>
+          {/* <span className="text-6xl">✨</span> */}
           <h2 className="text-2xl font-medium">Your wishlist is empty</h2>
         </div>
       )}
