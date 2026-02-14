@@ -19,34 +19,48 @@ const Card = ({ tasks, timers = {} }) => {
   };
 
   return (
-    <div className="px-4 md:px-10 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5 rounded-xl">
-        <h1 className="text-3xl font-bold">{totalTasks}</h1>
-        <p className="text-xl font-medium">Total Tasks</p>
+    <div className="px-0 sm:px-0 py-6 grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      <div className="flex flex-col gap-1 items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg shadow-indigo-200 dark:shadow-none transform hover:scale-[1.02] transition-transform">
+        <h1 className="text-4xl font-extrabold">{totalTasks}</h1>
+        <p className="text-sm font-medium opacity-90">Total Tasks</p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
-        <h1 className="text-3xl font-bold">
+      <div className="flex flex-col gap-1 items-center justify-center p-6 rounded-2xl bg-white dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all">
+        <h1 className="text-4xl font-extrabold text-orange-500">
           {tasks.filter((ele) => !ele.isCompleted).length}
         </h1>
-        <p className="text-xl font-medium">Active</p>
+        <p className="text-sm font-medium text-slate-500 dark:text-zinc-400">
+          Active
+        </p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
-        <h1 className="text-3xl font-bold">{completedTasks}</h1>
-        <p className="text-xl font-medium">Completed</p>
+      <div className="flex flex-col gap-1 items-center justify-center p-6 rounded-2xl bg-white dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all">
+        <h1 className="text-4xl font-extrabold text-emerald-500">
+          {completedTasks}
+        </h1>
+        <p className="text-sm font-medium text-slate-500 dark:text-zinc-400">
+          Completed
+        </p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
-        <h1 className="text-3xl font-bold">{formatTime(totalSeconds)}</h1>
-        <p className="text-xl font-medium">Total Time</p>
+      <div className="flex flex-col gap-1 items-center justify-center p-6 rounded-2xl bg-white dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-700 dark:text-slate-200">
+          {formatTime(totalSeconds)}
+        </h1>
+        <p className="text-sm font-medium text-slate-500 dark:text-zinc-400">
+          Total Time
+        </p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
-        <h1 className="text-3xl font-bold">{formatTime(avgSeconds)}</h1>
-        <p className="text-xl font-medium">Avg/Task</p>
+      <div className="flex flex-col gap-1 items-center justify-center p-6 rounded-2xl bg-white dark:bg-zinc-800 border border-slate-100 dark:border-zinc-700 shadow-sm hover:shadow-md transition-all">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-700 dark:text-slate-200">
+          {formatTime(avgSeconds)}
+        </h1>
+        <p className="text-sm font-medium text-slate-500 dark:text-zinc-400">
+          Avg Time/Task
+        </p>
       </div>
-      <div className="flex flex-col gap-2  items-center justify-center border w-full py-5  rounded-xl">
-        <h1 className="text-3xl font-bold">
+      <div className="flex flex-col gap-1 items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 text-white shadow-lg shadow-purple-200 dark:shadow-none transform hover:scale-[1.02] transition-transform">
+        <h1 className="text-3xl font-extrabold">
           {Math.round(completionPercentage)}%
         </h1>
-        <p className="text-xl font-medium">Completion</p>
+        <p className="text-sm font-medium opacity-90">Completion Rate</p>
       </div>
     </div>
   );

@@ -11,6 +11,19 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [timers, setTimers] = useState({});
   const intervalsRef = useRef({});
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme") === "dark",
+  );
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     return () => {
@@ -115,8 +128,10 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen w-full px-4 md:max-w-[85%] lg:max-w-[65%] mx-auto bg-[#FFFFFF]">
-      <Header />
+    <div
+      className={`min-h-screen w-full px-4 md:max-w-[85%] lg:max-w-[65%] mx-auto transition-colors duration-300 ${darkMode ? "bg-zinc-950 text-white" : "bg-slate-50 text-slate-900"}`}
+    >
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} tasks={tasks} />
       <Card tasks={tasks} timers={timers} />
       <AddTask addTask={addTask} />
       <Result
