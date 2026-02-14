@@ -1,15 +1,17 @@
-import Header from "./components/Header";
-import Product from "./components/Product";
-import Cart from "./components/Cart"
-import Wishlist from "./components/Wishlist";
+import MainLayout from "./layout/MainLayout";
+import Header from "./components/common/Header";
+import ProductList from "./components/products/ProductList";
+import CartList from "./components/cart/CartList";
+import WishlistList from "./components/wishlist/WishlistList";
+
 const App = () => {
   return (
-    <div className="w-full bg-[#F4F7FB] px-20 py-10 flex flex-col gap-13">
+    <MainLayout>
       <Header />
-      <Product />
-      <Cart />
-      <Wishlist/>
-    </div>
+      <ProductList />
+      <CartList />
+      <WishlistList />
+    </MainLayout>
   );
 };
 
