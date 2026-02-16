@@ -47,7 +47,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
@@ -87,7 +87,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
@@ -114,7 +114,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
@@ -154,7 +154,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
@@ -181,7 +181,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
@@ -221,7 +221,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
@@ -248,7 +248,7 @@ const defaultUsers = [
         avatar: "👨",
         lastMessage: " ",
         time: "",
-        unread: 2,
+        unread: 0,
         isOnline: false,
         messages: {
           sendmessage: [
