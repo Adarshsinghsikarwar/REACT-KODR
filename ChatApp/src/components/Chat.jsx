@@ -76,6 +76,83 @@ const Chat = () => {
     }
   };
 
+  // Handle sending group messages
+  const handleSendGroupMessage = (e) => {
+    e.preventDefault();
+
+    if (message.trim() && selectedGroup) {
+      const newMessage = {
+        id: Date.now(),
+        sender: user.name,
+        text: message.trim(),
+        time: new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+
+      console.log("📤 Sending group message:", message.trim());
+      console.log("👥 To group:", selectedGroup.groupname);
+      console.log("👤 From:", user.name);
+
+      // Update the users state with the new group message
+      const updatedUsers = users.map((u) => {
+        if (u.id === user.id) {
+          return {
+            ...u,
+            groups: u.groups.map((group) => {
+              if (group.groupname === selectedGroup.groupname) {
+                return {
+                  ...group,
+                  groupmessages: {
+                    ...group.groupmessages,
+                    sendmessage: [
+                      ...(group.groupmessages?.sendmessage || []),
+                      newMessage,
+                    ],
+                  },
+                };
+              }
+              return group;
+            }),
+          };
+        }
+        return u;
+      });
+
+      console.log("💾 Updated users with group message");
+      setUser(updatedUsers);
+
+      // Update selectedGroup to reflect new message
+      const updatedGroup = updatedUsers
+        .find((u) => u.id === user.id)
+        ?.groups.find((g) => g.groupname === selectedGroup.groupname);
+
+      if (updatedGroup) {
+        console.log("🔄 Updating selectedGroup with:", updatedGroup);
+        setSelectedGroup(updatedGroup);
+      }
+
+      setMessage("");
+    }
+  };
+
+  // Get combined group messages (sent and received)
+  const getCombinedGroupMessages = () => {
+    if (!selectedGroup || !selectedGroup.groupmessages) return [];
+
+    const sent = selectedGroup.groupmessages.sendmessage || [];
+    const received = selectedGroup.groupmessages.receivemessage || [];
+
+    const combined = [
+      ...sent.map((msg) => ({ ...msg, type: "sent" })),
+      ...received.map((msg) => ({ ...msg, type: "received" })),
+    ];
+
+    // Sort by ID (timestamp)
+    return combined.sort((a, b) => a.id - b.id);
+  };
+
   // Handle viewing new messages
   const handleViewNewMessages = () => {
     console.log("📬 New Messages:", user?.newMessage);
@@ -540,26 +617,46 @@ const Chat = () => {
               </div>
 
               <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-                {selectedGroup.groupmessages?.sendmessage?.map((msg) => (
-                  <div key={msg.id} className="flex mb-4 justify-end">
-                    <div className="max-w-[70%] rounded-lg p-3 bg-green-500 text-white">
-                      <p className="text-sm">{msg.text}</p>
-                      <span className="text-xs opacity-70 mt-1 block">
-                        {msg.time}
-                      </span>
+                {getCombinedGroupMessages().length > 0 ? (
+                  getCombinedGroupMessages().map((msg) => (
+                    <div
+                      key={msg.id}
+                      className={`flex mb-4 ${
+                        msg.sender === user.name
+                          ? "justify-end"
+                          : "justify-start"
+                      }`}
+                    >
+                      <div
+                        className={`max-w-[70%] rounded-lg p-3 ${
+                          msg.sender === user.name
+                            ? "bg-green-500 text-white"
+                            : "bg-white text-gray-800 border border-gray-300"
+                        }`}
+                      >
+                        {msg.sender !== user.name && (
+                          <p className="text-xs font-semibold mb-1 opacity-70">
+                            {msg.sender}
+                          </p>
+                        )}
+                        <p className="text-sm">{msg.text}</p>
+                        <span className="text-xs opacity-70 mt-1 block">
+                          {msg.time}
+                        </span>
+                      </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="flex items-center justify-center h-full">
+                    <p className="text-gray-500">
+                      No messages yet. Start the conversation!
+                    </p>
                   </div>
-                ))}
+                )}
               </div>
 
               <div className="p-4 bg-white border-t border-gray-200">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    alert("Group messaging coming soon!");
-                  }}
-                  className="flex gap-2"
-                >
+                <form onSubmit={handleSendGroupMessage} className="flex gap-2">
                   <input
                     type="text"
                     value={message}
