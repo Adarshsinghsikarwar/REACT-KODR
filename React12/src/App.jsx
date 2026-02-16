@@ -6,12 +6,12 @@ import WishlistList from "./components/wishlist/WishlistList";
 
 const App = () => {
   return (
-    <MainLayout>
+    <div className="bg-zinc-200 py-10 px-10 flex flex-col gap-10">
       <Header />
       <ProductList />
       <CartList />
       <WishlistList />
-    </MainLayout>
+    </div>
   );
 };
 

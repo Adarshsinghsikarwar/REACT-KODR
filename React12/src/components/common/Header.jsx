@@ -5,7 +5,7 @@ const Header = () => {
   const { cart, Wishlist, mode, setMode } = useContext(TaskContext);
   return (
     <div
-      className={`rounded-xl flex items-center justify-between p-7 shadow-sm transition-colors ${
+      className={`rounded-xl flex items-center justify-between px-10 py-7 shadow-sm transition-colors ${
         mode === "dark" ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}
     >
