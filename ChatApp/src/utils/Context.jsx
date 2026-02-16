@@ -12,7 +12,7 @@ const defaultUsers = [
     unread: 0,
     isOnline: true,
     isLogin: false,
-    newMessage: ["hello"],
+    newMessage: [],
     friends: [
       {
         id: 1,
@@ -23,49 +23,21 @@ const defaultUsers = [
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
       {
         id: 2,
         name: "Shubham",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
     ],
@@ -85,54 +57,26 @@ const defaultUsers = [
         id: 1,
         name: "Rahul",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: "",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
       {
         id: 2,
         name: "Shubham",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
     ],
@@ -152,54 +96,26 @@ const defaultUsers = [
         id: 1,
         name: "Rahul",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
       {
         id: 2,
         name: "Keshab",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
     ],
@@ -219,54 +135,26 @@ const defaultUsers = [
         id: 1,
         name: "Rahul",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
       {
         id: 2,
         name: "Shubham",
         avatar: "👨",
-        lastMessage: " ",
+        lastMessage: "",
         time: "",
         unread: 0,
         isOnline: false,
         messages: {
-          sendmessage: [
-            {
-              id: 1,
-              sender: "me",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
-          receivemessage: [
-            {
-              id: 1,
-              sender: "them",
-              text: " ",
-              time: "10:30 AM",
-            },
-          ],
+          sendmessage: [],
+          receivemessage: [],
         },
       },
     ],
