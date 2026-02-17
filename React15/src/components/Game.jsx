@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../utils/Context";
-import Box from "./box";
+import Box from "./Box";
 
 const Game = () => {
   const {
