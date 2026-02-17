@@ -167,13 +167,13 @@ export const ContextProvider = ({ children }) => {
 
   // Load loginUser from localStorage on initial mount
   const [loginUser, setLoginUser] = useState(() => {
-    const saved = sessionStorage.getItem("chatApp_loginUser");
+    const saved = localStorage.getItem("chatApp_loginUser");
     return saved ? JSON.parse(saved) : null;
   });
 
   // Load users from localStorage on initial mount, or use default if not found
   const [users, setUser] = useState(() => {
-    const saved = sessionStorage.getItem("chatApp_users");
+    const saved = localStorage.getItem("chatApp_users");
     return saved ? JSON.parse(saved) : defaultUsers;
   });
 
@@ -181,17 +181,17 @@ export const ContextProvider = ({ children }) => {
 
   // Save users to localStorage whenever it changes
   useEffect(() => {
-    sessionStorage.setItem("chatApp_users", JSON.stringify(users));
+    localStorage.setItem("chatApp_users", JSON.stringify(users));
     // alert("Saved users to localStorage");
   }, [users]);
 
   // Save loginUser to localStorage whenever it changes
   useEffect(() => {
     if (loginUser) {
-      sessionStorage.setItem("chatApp_loginUser", JSON.stringify(loginUser));
+      localStorage.setItem("chatApp_loginUser", JSON.stringify(loginUser));
       // alert("Saved loginUser to localStorage:", loginUser.name);
     } else {
-      sessionStorage.removeItem("chatApp_loginUser");
+      localStorage.removeItem("chatApp_loginUser");
     }
   }, [loginUser]);
 
