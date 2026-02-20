@@ -5,6 +5,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   console.log(posts);
 
   const [showForm, setShowForm] = useState(false);
@@ -12,11 +13,14 @@ const App = () => {
   const [currentPost, setCurrentPost] = useState(null);
   const url = "https://jsonplaceholder.typicode.com/posts";
   const fetchData = async () => {
+    setLoading(true);
     const data = await fetch(url);
     const res = await data.json();
     setPosts(res);
+    setLoading(false);
   };
   const addPost = async (title, content) => {
+    setLoading(true);
     const data = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -36,6 +40,7 @@ const App = () => {
     setTitle("");
     setContent("");
     setShowForm(false);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -43,13 +48,16 @@ const App = () => {
   }, []);
 
   const deletePost = async (id) => {
+    setLoading(true);
     const data = await fetch(url + `/${id}`, { method: "DELETE" });
     const res = await data.json();
     alert("post deleted");
     setPosts((prev) => prev.filter((post) => id !== post.id));
+    setLoading(false);
   };
 
   const updatePost = async (id, title, content) => {
+    setLoading(true);
     if (id <= 100) {
       try {
         const data = await fetch(url + `/${id}`, {
@@ -66,13 +74,16 @@ const App = () => {
         setPosts((prev) => prev.map((post) => (post.id === id ? res : post)));
       } catch (err) {
         console.error("Update failed", err);
+      } finally {
+        setLoading(false);
       }
     } else {
       setPosts((prev) =>
         prev.map((post) =>
-          post.id === id ? { ...post, title, body: content } : post
-        )
+          post.id === id ? { ...post, title, body: content } : post,
+        ),
       );
+      setLoading(false);
     }
   };
 
@@ -100,7 +111,10 @@ const App = () => {
     <div className="h-screen w-full  px-10 py-5">
       <div className="flex justify-between mb-5">
         <h1 className="text-3xl font-medium"> All the post Data</h1>
-        <h1 className="text-xl font-semibold">Post Count : {posts?.length}</h1>
+        <h1 className="text-xl font-semibold">
+          Post Count : {posts?.length}{" "}
+          {loading && <span className="text-blue-500 ml-2">loading...</span>}
+        </h1>
         <button
           onClick={() => {
             setTitle("");
@@ -113,48 +127,54 @@ const App = () => {
         </button>
       </div>
       <div className=" flex flex-wrap justify-between gap-10 p-5">
-        {posts?.map((post, index) => (
-          <div
-            key={post.id || index}
-            className="w-[320px] px-4 py-2 rounded flex flex-col gap-5 bg-zinc-200 "
-          >
-            <div>
-              <h1 className="text-xl font-medium">
-                Title :{" "}
-                {post?.title.length > 14
-                  ? post.title.substring(0, 14) + " ..."
-                  : post.title}
-              </h1>
-              <h1 className="text-xl font-medium">
-                Content :{" "}
-                <span>
-                  {post?.body.length > 17
-                    ? post.body.substring(0, 17) + " ..."
-                    : post.body}
-                </span>
-              </h1>
+        {loading && posts.length === 0 ? (
+          <h1 className="text-2xl font-medium w-full text-center">
+            loading...
+          </h1>
+        ) : (
+          posts?.map((post, index) => (
+            <div
+              key={post.id || index}
+              className="w-[320px] px-4 py-2 rounded flex flex-col gap-5 bg-zinc-200 "
+            >
+              <div>
+                <h1 className="text-xl font-medium">
+                  Title :{" "}
+                  {post?.title.length > 14
+                    ? post.title.substring(0, 14) + " ..."
+                    : post.title}
+                </h1>
+                <h1 className="text-xl font-medium">
+                  Content :{" "}
+                  <span>
+                    {post?.body.length > 17
+                      ? post.body.substring(0, 17) + " ..."
+                      : post.body}
+                  </span>
+                </h1>
+              </div>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => {
+                    setUpdateForm(true);
+                    setCurrentPost(post);
+                    setTitle(post.title || "");
+                    setContent(post.body || "");
+                  }}
+                  className="px-4 py-1 whitespace-nowrap bg-blue-400 rounded text-xl text-white"
+                >
+                  Update Post
+                </button>
+                <button
+                  onClick={() => deletePost(post.id || index)}
+                  className="px-4 py-1 whitespace-nowrap bg-red-400 rounded text-xl text-white"
+                >
+                  Delete Post
+                </button>
+              </div>
             </div>
-            <div className="flex gap-4">
-              <button
-                onClick={() => {
-                  setUpdateForm(true);
-                  setCurrentPost(post);
-                  setTitle(post.title || "");
-                  setContent(post.body || "");
-                }}
-                className="px-4 py-1 whitespace-nowrap bg-blue-400 rounded text-xl text-white"
-              >
-                Update Post
-              </button>
-              <button
-                onClick={() => deletePost(post.id || index)}
-                className="px-4 py-1 whitespace-nowrap bg-red-400 rounded text-xl text-white"
-              >
-                Delete Post
-              </button>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {showForm && (
@@ -189,7 +209,7 @@ const App = () => {
                 placeholder="Enter Content"
               />
               <button className="w-full rounded py-2 bg-blue-500 text-white text-xl">
-                Create Post
+                {loading ? "loading..." : "Create Post"}
               </button>
             </form>
           </div>
@@ -228,7 +248,7 @@ const App = () => {
                 placeholder="Enter Content"
               />
               <button className="w-full rounded py-2 bg-blue-500 text-white text-xl">
-                Update Post
+                {loading ? "loading..." : "Update Post"}
               </button>
             </form>
           </div>
