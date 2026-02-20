@@ -18,3 +18,56 @@ Hot module replacment
 
 npm init
 npm i -D vite
+what is state : local state , global state
+
+
+1. {
+    type : "div",
+    props : {id : 'container' , class: "bg-red"}
+    children : [
+        type:"h1" , props : {} , children : ['Hello
+        ']
+    ]
+}
+
+2.  import React from "react";
+const App = () => {
+   const virtualDOMNode = {
+   type: 'div',
+   props: {
+    id: 'profile-container',
+    className: 'card',
+    children: [
+      {
+        type: 'h1',
+        props: {
+          style: { color: 'blue' },
+          children: 'User Profile'
+        }
+      },
+      {
+        type: 'p',
+        props: {
+          children: 'Status: Active'
+        }
+      }
+    ]
+  }
+};
+
+
+  return (
+     <div>
+       {React.createElement(
+         virtualDOMNode.type, 
+         virtualDOMNode.props, 
+         ...virtualDOMNode.props.children.map(child => 
+            React.createElement(child.type, child.props, child.props.children)
+         )
+       )}
+    </div>
+  )
+
+};
+
+export default App;
