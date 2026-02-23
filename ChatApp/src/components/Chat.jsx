@@ -36,6 +36,7 @@ const Chat = () => {
     }
 
     const newGroup = {
+      id: Date.now(),
       groupname: groupName.trim(),
       avatar: "👥",
       groupmembers: [user.name, ...selectedMembers],
@@ -46,9 +47,9 @@ const Chat = () => {
       groupMessagesCount: 0,
     };
 
-    // Add group to user's groups
+    // Add group to all members' groups
     const updatedUsers = users.map((u) => {
-      if (u.id === user.id) {
+      if (newGroup.groupmembers.includes(u.name)) {
         return {
           ...u,
           groups: [...(u.groups || []), newGroup],
@@ -95,27 +96,42 @@ const Chat = () => {
       console.log("👥 To group:", selectedGroup.groupname);
       console.log("👤 From:", user.name);
 
-      // Update the users state with the new group message
+      // Update the users state with the new group message for ALL members
       const updatedUsers = users.map((u) => {
-        if (u.id === user.id) {
-          return {
-            ...u,
-            groups: u.groups.map((group) => {
-              if (group.groupname === selectedGroup.groupname) {
-                return {
-                  ...group,
-                  groupmessages: {
-                    ...group.groupmessages,
-                    sendmessage: [
-                      ...(group.groupmessages?.sendmessage || []),
-                      newMessage,
-                    ],
-                  },
-                };
-              }
-              return group;
-            }),
-          };
+        // If user is a member of the group
+        const groupIndex = u.groups?.findIndex(
+          (g) => g.id === selectedGroup.id,
+        );
+
+        if (groupIndex !== -1 && groupIndex !== undefined) {
+          const isSender = u.name === user.name;
+          const updatedGroups = [...u.groups];
+          const groupToUpdate = { ...updatedGroups[groupIndex] };
+
+          if (isSender) {
+            groupToUpdate.groupmessages = {
+              ...groupToUpdate.groupmessages,
+              sendmessage: [
+                ...(groupToUpdate.groupmessages?.sendmessage || []),
+                newMessage,
+              ],
+            };
+          } else {
+            groupToUpdate.groupmessages = {
+              ...groupToUpdate.groupmessages,
+              receivemessage: [
+                ...(groupToUpdate.groupmessages?.receivemessage || []),
+                newMessage,
+              ],
+            };
+            // Only increment count if they aren't currently viewing the group
+            // (Standard behavior for chat apps)
+            groupToUpdate.groupMessagesCount =
+              (groupToUpdate.groupMessagesCount || 0) + 1;
+          }
+
+          updatedGroups[groupIndex] = groupToUpdate;
+          return { ...u, groups: updatedGroups };
         }
         return u;
       });
@@ -126,7 +142,7 @@ const Chat = () => {
       // Update selectedGroup to reflect new message
       const updatedGroup = updatedUsers
         .find((u) => u.id === user.id)
-        ?.groups.find((g) => g.groupname === selectedGroup.groupname);
+        ?.groups.find((g) => g.id === selectedGroup.id);
 
       if (updatedGroup) {
         console.log("🔄 Updating selectedGroup with:", updatedGroup);
@@ -222,6 +238,42 @@ const Chat = () => {
     }
   };
 
+  // Handle selecting a group and reset its message count
+  const handleSelectGroup = (group) => {
+    setChatType("group");
+    setSelectedContact(null);
+
+    // Update the users state to reset groupMessagesCount for ONLY this group
+    const updatedUsers = users.map((u) => {
+      if (u.id === user.id) {
+        return {
+          ...u,
+          groups: u.groups.map((g) => {
+            if (g.id === group.id) {
+              return {
+                ...g,
+                groupMessagesCount: 0, // Reset count when viewing
+              };
+            }
+            return g;
+          }),
+        };
+      }
+      return u;
+    });
+
+    setUser(updatedUsers);
+
+    // Set the selected group with updated count
+    const updatedGroup = updatedUsers
+      .find((u) => u.id === user.id)
+      ?.groups.find((g) => g.id === group.id);
+
+    if (updatedGroup) {
+      setSelectedGroup(updatedGroup);
+    }
+  };
+
   const handleSendMessage = (e) => {
     e.preventDefault();
 
@@ -304,7 +356,7 @@ const Chat = () => {
 
           if (hasSenderAsFriend) {
             // Sender is already a friend, just add the message
-            alert("  ✅ Adding to receiver's receivemessage");
+            console.log("  ✅ Adding to receiver's receivemessage");
             return {
               ...u,
               newMessage: [
@@ -313,7 +365,7 @@ const Chat = () => {
               ],
               friends: u.friends.map((friend) => {
                 if (friend.name === user.name) {
-                  alert(
+                  console.log(
                     "    ✅ Updated friend:",
                     friend.name,
                     "- Unread:",
@@ -341,7 +393,7 @@ const Chat = () => {
             };
           } else {
             // Sender is NOT a friend yet, add them to friend list
-            alert("  ⭐ Adding sender as NEW friend to receiver's list");
+            console.log("  ⭐ Adding sender as NEW friend to receiver's list");
             const newFriend = {
               id: user.id,
               name: user.name,
@@ -479,14 +531,9 @@ const Chat = () => {
               user.groups.map((group, index) => (
                 <div
                   key={index}
-                  onClick={() => {
-                    setSelectedGroup(group);
-                    setChatType("group");
-                    setSelectedContact(null); // Clear friend selection
-                  }}
+                  onClick={() => handleSelectGroup(group)}
                   className={`p-4 cursor-pointer hover:bg-gray-100 border-b border-gray-200 ${
-                    chatType === "group" &&
-                    selectedGroup?.groupname === group.groupname
+                    chatType === "group" && selectedGroup?.id === group.id
                       ? "bg-green-100"
                       : ""
                   }`}
