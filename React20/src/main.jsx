@@ -29,15 +29,17 @@ const router = createBrowserRouter([
       {
         path: "/product",
         element: <Product />,
+        children: [
+          {
+            path: ":id",
+            element: <ShowCard />,
+          },
+        ],
       },
       {
         path: "*",
         element: <PageNotFound />,
       },
-      {
-        path: "/product/:id",
-        element: <ShowCard />
-      }
     ],
   },
 ]);

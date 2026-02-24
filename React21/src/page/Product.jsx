@@ -1,16 +1,16 @@
 import ProductCard from "../components/ProductCard";
-import PRODUCTS from "../data/products";
+import PRODUCTS from "../utils/data";
 import { Outlet } from "react-router-dom";
 
 const Product = () => {
   return (
-    <div>
-      <div className="mt-3 flex justify-center  gap-10">
+    <div className="">
+      <div className="flex justify-center gap-15">
         {PRODUCTS.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <hr />
+      <hr className="my-5" />
       <Outlet />
     </div>
   );
